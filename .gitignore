@@ -3,6 +3,7 @@ build/
 bin/fledge-bridge
 *.class
 *.jar
+!gradle/wrapper/gradle-wrapper.jar
 *.log
 .idea/
 *.iml
