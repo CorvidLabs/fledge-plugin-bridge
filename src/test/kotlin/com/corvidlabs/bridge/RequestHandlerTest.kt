@@ -4,12 +4,17 @@ import com.corvidlabs.bridge.security.CapabilityGuard
 import com.corvidlabs.bridge.ws.BridgeRequest
 import com.corvidlabs.bridge.ws.RequestHandler
 import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.io.TempDir
+import java.nio.file.Path
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class RequestHandlerTest {
+
+    @TempDir
+    lateinit var sandbox: Path
 
     private fun handler(
         read: Boolean = true,
@@ -20,7 +25,7 @@ class RequestHandlerTest {
             allowRead = read,
             allowWrite = write,
             allowExec = exec,
-            sandboxRoot = "/tmp/bridge-test",
+            sandboxRoot = sandbox.toString(),
         )
         return RequestHandler(guard)
     }

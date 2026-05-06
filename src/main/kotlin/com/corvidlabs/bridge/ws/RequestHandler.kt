@@ -100,14 +100,35 @@ class RequestHandler(private val capabilities: CapabilityGuard) {
             .redirectErrorStream(false)
             .start()
 
+        // Read stdout/stderr concurrently with waitFor so commands that
+        // produce more than the OS pipe buffer (~64 KB) don't deadlock.
+        // Each stream is capped at MAX_OUTPUT_BYTES and excess is dropped
+        // with a tail marker — adversarial output can't OOM the JVM.
+        val stdoutCollector = drainBounded(process.inputStream)
+        val stderrCollector = drainBounded(process.errorStream)
+
         val completed = process.waitFor(timeout, TimeUnit.MILLISECONDS)
         if (!completed) {
             process.destroyForcibly()
-            return BridgeResponse(id = request.id, type = "exec", success = false, error = "Command timed out")
+            // Wait briefly so the drain threads see EOF and finish
+            stdoutCollector.thread.join(500)
+            stderrCollector.thread.join(500)
+            return BridgeResponse(
+                id = request.id,
+                type = "exec",
+                success = false,
+                error = "Command timed out",
+                data = buildJsonObject {
+                    put("code", -1)
+                    put("stdout", stdoutCollector.text())
+                    put("stderr", stderrCollector.text())
+                    put("truncated", stdoutCollector.truncated || stderrCollector.truncated)
+                },
+            )
         }
 
-        val stdout = process.inputStream.bufferedReader().readText()
-        val stderr = process.errorStream.bufferedReader().readText()
+        stdoutCollector.thread.join()
+        stderrCollector.thread.join()
         val exitCode = process.exitValue()
 
         return BridgeResponse(
@@ -116,9 +137,56 @@ class RequestHandler(private val capabilities: CapabilityGuard) {
             success = exitCode == 0,
             data = buildJsonObject {
                 put("code", exitCode)
-                put("stdout", stdout)
-                put("stderr", stderr)
+                put("stdout", stdoutCollector.text())
+                put("stderr", stderrCollector.text())
+                put("truncated", stdoutCollector.truncated || stderrCollector.truncated)
             },
         )
+    }
+
+    private companion object {
+        private const val MAX_OUTPUT_BYTES = 1 * 1024 * 1024 // 1 MiB per stream
+    }
+
+    private class DrainResult(
+        val thread: Thread,
+        private val buffer: StringBuilder,
+    ) {
+        @Volatile var truncated: Boolean = false
+        fun text(): String = synchronized(buffer) { buffer.toString() }
+    }
+
+    private fun drainBounded(stream: java.io.InputStream): DrainResult {
+        val buffer = StringBuilder()
+        val resultRef = arrayOf<DrainResult?>(null)
+        val thread = Thread {
+            stream.bufferedReader().use { reader ->
+                val chunk = CharArray(8 * 1024)
+                while (true) {
+                    val n = try { reader.read(chunk) } catch (_: Exception) { -1 }
+                    if (n < 0) break
+                    val current = resultRef[0]
+                    synchronized(buffer) {
+                        if (buffer.length + n > MAX_OUTPUT_BYTES) {
+                            val take = (MAX_OUTPUT_BYTES - buffer.length).coerceAtLeast(0)
+                            if (take > 0) buffer.appendRange(chunk, 0, take)
+                            current?.truncated = true
+                        } else {
+                            buffer.appendRange(chunk, 0, n)
+                        }
+                    }
+                    if (current?.truncated == true) {
+                        // Drain the rest so the child process doesn't block
+                        // on a full pipe; we just discard the bytes.
+                        while (reader.read(chunk) >= 0) { /* drain */ }
+                        break
+                    }
+                }
+            }
+        }.apply { isDaemon = true }
+        val result = DrainResult(thread, buffer)
+        resultRef[0] = result
+        thread.start()
+        return result
     }
 }
