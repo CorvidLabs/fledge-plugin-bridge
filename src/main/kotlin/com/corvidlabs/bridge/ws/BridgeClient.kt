@@ -69,37 +69,45 @@ class BridgeClient(
      * the request loop unless it is an explicit `auth-ok`. A server (or
      * MITM) that skips this handshake will see the connection close before
      * any file/exec request is processed.
+     *
+     * Uses withTimeoutOrNull so a server that simply never sends a frame
+     * is rejected after AUTH_TIMEOUT_MS — the previous version's
+     * `for (frame in incoming)` would block forever in that case because
+     * the deadline check only ran *after* a frame arrived.
      */
     private suspend fun DefaultClientWebSocketSession.awaitAuthResponse(): Boolean {
-        // 10s budget for the server to ack — adjustable later if needed.
-        val deadline = System.currentTimeMillis() + 10_000
-        for (frame in incoming) {
-            if (System.currentTimeMillis() > deadline) {
-                FledgeProtocol.error("Auth timeout: server did not respond within 10s")
-                return false
+        val text = withTimeoutOrNull(AUTH_TIMEOUT_MS) {
+            for (frame in incoming) {
+                if (frame is Frame.Text) return@withTimeoutOrNull frame.readText()
+                if (frame is Frame.Close) return@withTimeoutOrNull null
             }
-            if (frame !is Frame.Text) continue
-            val text = frame.readText()
-            val resp = try {
-                json.decodeFromString(AuthResponse.serializer(), text)
-            } catch (_: Exception) {
-                FledgeProtocol.error("Auth failed: server sent unrecognized first frame: $text")
-                return false
+            null
+        }
+        if (text == null) {
+            FledgeProtocol.error("Auth timeout: server did not respond within ${AUTH_TIMEOUT_MS / 1000}s")
+            return false
+        }
+        val resp = try {
+            json.decodeFromString(AuthResponse.serializer(), text)
+        } catch (_: Exception) {
+            FledgeProtocol.error("Auth failed: server sent unrecognized first frame: $text")
+            return false
+        }
+        return when (resp.type) {
+            "auth-ok" -> true
+            "auth-failed" -> {
+                FledgeProtocol.error("Auth rejected by server: ${resp.reason ?: "(no reason given)"}")
+                false
             }
-            return when (resp.type) {
-                "auth-ok" -> true
-                "auth-failed" -> {
-                    FledgeProtocol.error("Auth rejected by server: ${resp.reason ?: "(no reason given)"}")
-                    false
-                }
-                else -> {
-                    FledgeProtocol.error("Auth failed: expected 'auth-ok' or 'auth-failed', got '${resp.type}'")
-                    false
-                }
+            else -> {
+                FledgeProtocol.error("Auth failed: expected 'auth-ok' or 'auth-failed', got '${resp.type}'")
+                false
             }
         }
-        FledgeProtocol.error("Auth failed: connection closed before server acknowledged auth")
-        return false
+    }
+
+    private companion object {
+        const val AUTH_TIMEOUT_MS = 10_000L
     }
 
     private suspend fun DefaultClientWebSocketSession.listenForRequests() {
