@@ -1,0 +1,19 @@
+[plugin]
+name = "fledge-plugin-bridge"
+version = "0.1.0"
+description = "Bridge your local dev environment to corvid-agent via outbound WebSocket"
+author = "CorvidLabs"
+protocol = "fledge-v1"
+
+[[commands]]
+name = "bridge"
+description = "Remote dev environment bridge — connect, status, disconnect"
+binary = "bin/fledge-bridge"
+
+[hooks]
+build = "hooks/build.sh"
+
+[capabilities]
+exec = true
+store = true
+metadata = true

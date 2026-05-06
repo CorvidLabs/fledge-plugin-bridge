@@ -1,0 +1,7 @@
+[registry]
+name = "fledge-plugin-bridge"
+
+[specs]
+bridge-client = "specs/bridge/bridge-client.spec.md"
+protocol = "specs/protocol/protocol.spec.md"
+security = "specs/security/security.spec.md"

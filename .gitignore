@@ -1,0 +1,11 @@
+.gradle/
+build/
+bin/fledge-bridge
+*.class
+*.jar
+*.log
+.idea/
+*.iml
+.kotlin/
+local.properties
+.fledge/
