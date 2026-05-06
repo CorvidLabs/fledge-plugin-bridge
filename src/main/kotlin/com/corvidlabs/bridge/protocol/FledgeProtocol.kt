@@ -50,13 +50,13 @@ object FledgeProtocol {
     }
 
     fun output(text: String) {
-        val msg = """{"type":"output","text":${Json.encodeToString(kotlinx.serialization.builtins.serializer<String>(), text)}}"""
+        val msg = """{"type":"output","text":${Json.encodeToString(text)}}"""
         println(msg)
         System.out.flush()
     }
 
     fun log(level: String, message: String) {
-        val msg = """{"type":"log","level":"$level","message":${Json.encodeToString(kotlinx.serialization.builtins.serializer<String>(), message)}}"""
+        val msg = """{"type":"log","level":"$level","message":${Json.encodeToString(message)}}"""
         println(msg)
         System.out.flush()
     }

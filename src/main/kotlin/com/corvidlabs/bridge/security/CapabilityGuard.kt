@@ -4,7 +4,6 @@ import java.nio.file.Path
 import kotlin.io.path.Path
 import kotlin.io.path.absolute
 import kotlin.io.path.isDirectory
-import kotlin.io.path.normalize
 
 class CapabilityGuard(
     val allowRead: Boolean,

@@ -5,16 +5,15 @@ import com.corvidlabs.bridge.protocol.InitMessage
 import com.corvidlabs.bridge.security.CapabilityGuard
 import com.corvidlabs.bridge.ws.BridgeClient
 import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
-import com.github.ajalt.clikt.parameters.types.int
 import kotlinx.coroutines.runBlocking
 
-class ConnectCommand(private val initMessage: InitMessage?) : CliktCommand(
-    name = "connect",
-    help = "Connect to a corvid-agent server via WebSocket",
-) {
+class ConnectCommand(private val initMessage: InitMessage?) : CliktCommand(name = "connect") {
+    override fun help(context: Context) = "Connect to a corvid-agent server via WebSocket"
+
     private val server by option("--server", "-s", help = "Server URL (e.g. ws://localhost:3000)")
         .required()
 

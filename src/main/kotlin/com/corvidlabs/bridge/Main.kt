@@ -3,6 +3,7 @@ package com.corvidlabs.bridge
 import com.corvidlabs.bridge.cli.BridgeCli
 import com.corvidlabs.bridge.protocol.FledgeProtocol
 import com.corvidlabs.bridge.protocol.InitMessage
+import com.github.ajalt.clikt.core.main
 
 fun main(args: Array<String>) {
     val initMessage = FledgeProtocol.readInit()
