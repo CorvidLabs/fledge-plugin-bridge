@@ -53,6 +53,12 @@ kotlin {
     jvmToolchain(21)
 }
 
+// Enable Gradle dependency locking. Run `./gradlew dependencies --write-locks`
+// after changing dependencies to regenerate the lockfiles.
+dependencyLocking {
+    lockAllConfigurations()
+}
+
 tasks.jar {
     manifest {
         attributes["Main-Class"] = "com.corvidlabs.bridge.MainKt"
