@@ -22,7 +22,17 @@ mkdir -p bin
 cat > bin/fledge-bridge <<WRAPPER
 #!/usr/bin/env bash
 set -euo pipefail
-PLUGIN_DIR="\$(cd "\$(dirname "\$0")/.." && pwd)"
+
+# Resolve symlinks so the jar path is correct even when invoked via
+# a symlink (e.g. plugins/bin/fledge-bridge -> plugins/fledge-plugin-bridge/bin/fledge-bridge).
+SOURCE="\$0"
+while [ -L "\$SOURCE" ]; do
+  DIR="\$(cd "\$(dirname "\$SOURCE")" && pwd)"
+  SOURCE="\$(readlink "\$SOURCE")"
+  [[ "\$SOURCE" != /* ]] && SOURCE="\$DIR/\$SOURCE"
+done
+PLUGIN_DIR="\$(cd "\$(dirname "\$SOURCE")/.." && pwd)"
+
 JAR="\$PLUGIN_DIR/build/libs/fledge-plugin-bridge-${VERSION}.jar"
 exec java -jar "\$JAR" "\$@"
 WRAPPER
