@@ -34,7 +34,7 @@ done
 PLUGIN_DIR="\$(cd "\$(dirname "\$SOURCE")/.." && pwd)"
 
 JAR="\$PLUGIN_DIR/build/libs/fledge-plugin-bridge-${VERSION}.jar"
-exec java -jar "\$JAR" "\$@"
+exec java --enable-native-access=ALL-UNNAMED -jar "\$JAR" "\$@" 2>>"\${PLUGIN_DIR}/.bridge.log"
 WRAPPER
 
 chmod +x bin/fledge-bridge
