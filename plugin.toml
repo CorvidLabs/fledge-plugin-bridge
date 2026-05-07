@@ -15,5 +15,5 @@ build = "hooks/build.sh"
 
 [capabilities]
 exec = true
-store = true
-metadata = true
+store = false
+metadata = false

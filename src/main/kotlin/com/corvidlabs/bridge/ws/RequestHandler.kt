@@ -61,6 +61,15 @@ class RequestHandler(private val capabilities: CapabilityGuard) {
             return BridgeResponse(id = request.id, type = "file.read", success = false, error = "File not found")
         }
 
+        if (file.length() > MAX_FILE_READ_BYTES) {
+            return BridgeResponse(
+                id = request.id,
+                type = "file.read",
+                success = false,
+                error = "File exceeds maximum read size of ${MAX_FILE_READ_BYTES / (1024 * 1024)} MiB",
+            )
+        }
+
         val content = file.readText()
         return BridgeResponse(
             id = request.id,
@@ -115,6 +124,7 @@ class RequestHandler(private val capabilities: CapabilityGuard) {
         val process = ProcessBuilder("sh", "-c", command)
             .directory(cwd)
             .redirectErrorStream(false)
+            .redirectInput(ProcessBuilder.Redirect.from(File("/dev/null")))
             .start()
 
         // Read stdout/stderr concurrently with waitFor so commands that
@@ -163,6 +173,7 @@ class RequestHandler(private val capabilities: CapabilityGuard) {
 
     private companion object {
         private const val MAX_OUTPUT_BYTES = 1 * 1024 * 1024 // 1 MiB per stream
+        private const val MAX_FILE_READ_BYTES = 100L * 1024 * 1024 // 100 MiB
     }
 
     private class DrainResult(

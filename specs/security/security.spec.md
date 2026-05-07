@@ -30,7 +30,7 @@ Enforces the bridge's security model: capability-gated operations (read/write/ex
 | `assertWrite` | — | `Unit` | Throws if write not allowed |
 | `assertExec` | — | `Unit` | Throws if exec not allowed |
 | `validatePath` | `requestedPath: String` | `Path` | Resolves path within sandbox, rejects traversal |
-| `validateCommand` | `command: String` | `String` | Checks command against blocklist |
+| `validateCommand` | `command: String` | `String` | Rejects NUL bytes and empty input; no blocklist (see Invariants) |
 
 ### Constructor Parameters
 
@@ -46,7 +46,7 @@ Enforces the bridge's security model: capability-gated operations (read/write/ex
 1. Capabilities default to read-only — write and exec must be explicitly enabled.
 2. Path validation normalizes paths and rejects any path that resolves outside the sandbox root.
 3. Symbolic links that resolve outside the sandbox are rejected.
-4. The command blocklist prevents catastrophic system commands (rm -rf /, fork bombs, etc.).
+4. Command validation rejects NUL bytes and empty input but does not maintain a command blocklist. The previous five-substring denylist (`rm -rf /`, `mkfs`, etc.) was removed as security theatre — it was trivially bypassed. With `--allow-exec true` the operator grants shell access; trust is their responsibility.
 5. CapabilityGuard is immutable after construction — capabilities cannot be escalated mid-session.
 
 ## Behavioral Examples
@@ -71,10 +71,10 @@ Enforces the bridge's security model: capability-gated operations (read/write/ex
 - **When** `validatePath("src/Main.kt")` is called
 - **Then** it returns `/Users/kyn/project/src/Main.kt`
 
-### Scenario: Blocked command
+### Scenario: Destructive commands are intentionally allowed
 - **Given** a CapabilityGuard with allowExec=true
 - **When** `validateCommand("rm -rf /")` is called
-- **Then** it throws IllegalArgumentException
+- **Then** it returns the command unchanged (no blocklist; the operator accepted the risk with `--allow-exec true`)
 
 ## Error Cases
 
@@ -82,7 +82,8 @@ Enforces the bridge's security model: capability-gated operations (read/write/ex
 |-----------|----------|
 | Capability not granted | `IllegalStateException` with descriptive message |
 | Path escapes sandbox | `IllegalArgumentException` with "Path escapes sandbox" |
-| Blocked command | `IllegalArgumentException` with "Command blocked by safety filter" |
+| NUL byte in command | `IllegalArgumentException` with "Command contains NUL byte" |
+| Empty command | `IllegalArgumentException` with "Empty command" |
 
 ## Dependencies
 
