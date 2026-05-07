@@ -1,6 +1,6 @@
 # fledge-plugin-bridge
 
-A Kotlin fledge plugin that bridges your local dev environment to [corvid-agent](https://github.com/CorvidLabs/corvid-agent) via outbound WebSocket. Agents can read/write files and run commands on your machine — securely, with capability gating and path sandboxing.
+A Kotlin fledge plugin that bridges your local dev environment to [corvid-agent](https://github.com/CorvidLabs/corvid-agent) via outbound WebSocket. Agents can read/write files and run commands on your machine: securely, with capability gating and path sandboxing.
 
 ## Architecture
 
@@ -13,10 +13,10 @@ fledge bridge connect             /api/bridge endpoint
 ```
 
 **Key design decisions:**
-- **Outbound-only** — no ports opened on your machine
-- **Capability-gated** — read, write, exec each opt-in per session
-- **Path-sandboxed** — all file ops confined to project directory
-- **Session-scoped** — dies when you close the CLI
+- **Outbound-only**: no ports opened on your machine
+- **Capability-gated**: read, write, exec each opt-in per session
+- **Path-sandboxed**: all file ops confined to project directory
+- **Session-scoped**: dies when you close the CLI
 
 ## Installation
 
