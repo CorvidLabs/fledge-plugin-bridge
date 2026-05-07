@@ -7,7 +7,7 @@ protocol = "fledge-v1"
 
 [[commands]]
 name = "bridge"
-description = "Remote dev environment bridge — connect, status, disconnect"
+description = "Remote dev environment bridge: connect, status, disconnect"
 binary = "bin/fledge-bridge"
 
 [hooks]
