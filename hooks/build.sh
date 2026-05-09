@@ -39,3 +39,15 @@ WRAPPER
 
 chmod +x bin/fledge-bridge
 echo "Installed bin/fledge-bridge"
+
+# Windows wrapper (.bat) so `fledge bridge` works on Windows without
+# requiring bash. The fledge CLI picks whichever binary matches the OS.
+cat > bin/fledge-bridge.bat <<BATEOF
+@echo off
+setlocal
+
+set "PLUGIN_DIR=%~dp0.."
+set "JAR=%PLUGIN_DIR%\\build\\libs\\fledge-plugin-bridge-${VERSION}.jar"
+java --enable-native-access=ALL-UNNAMED -jar "%JAR%" %* 2>>"%PLUGIN_DIR%\\.bridge.log"
+BATEOF
+echo "Installed bin/fledge-bridge.bat"
