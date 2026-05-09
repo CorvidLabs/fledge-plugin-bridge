@@ -28,17 +28,21 @@ class ConnectCommand(private val initMessage: InitMessage?) : CliktCommand(name 
 
     private val sandboxPath: String
         get() {
-            sandboxOpt?.let { return it }
-            val root = initMessage?.project?.root
-            if (root != null) {
-                val f = File(root)
-                if (f.isAbsolute && f.isDirectory) return root
-                val relative = root.removePrefix("/")
+            val raw = sandboxOpt ?: initMessage?.project?.root ?: "."
+            val f = File(raw)
+            if (f.isAbsolute && f.isDirectory) return raw
+            if (f.isAbsolute) {
+                val relative = raw.removePrefix("/")
                 val home = System.getProperty("user.home") ?: ""
                 val resolved = File(home, relative)
                 if (resolved.isDirectory) return resolved.absolutePath
             }
-            return "."
+            if (!f.isAbsolute) {
+                val home = System.getProperty("user.home") ?: ""
+                val resolved = File(home, raw)
+                if (resolved.isDirectory) return resolved.absolutePath
+            }
+            return raw
         }
 
     private val allowRead by option("--allow-read", help = "Allow file read operations").default("true")
