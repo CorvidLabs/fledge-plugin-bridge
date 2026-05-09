@@ -10,6 +10,7 @@ import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import kotlinx.coroutines.runBlocking
+import java.io.File
 
 class ConnectCommand(private val initMessage: InitMessage?) : CliktCommand(name = "connect") {
     override fun help(context: Context) = "Connect to a corvid-agent server via WebSocket"
@@ -26,7 +27,17 @@ class ConnectCommand(private val initMessage: InitMessage?) : CliktCommand(name 
     private val sandboxOpt by option("--sandbox", help = "Root directory to sandbox file operations to")
 
     private val sandboxPath: String
-        get() = sandboxOpt ?: initMessage?.project?.root ?: "."
+        get() {
+            sandboxOpt?.let { return it }
+            val root = initMessage?.project?.root
+            if (root != null) {
+                val f = File(root)
+                if (f.isAbsolute && f.isDirectory) return root
+                val resolved = File(System.getProperty("user.home"), root)
+                if (resolved.isDirectory) return resolved.absolutePath
+            }
+            return "."
+        }
 
     private val allowRead by option("--allow-read", help = "Allow file read operations").default("true")
     private val allowWrite by option("--allow-write", help = "Allow file write operations").default("false")
