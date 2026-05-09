@@ -1,6 +1,7 @@
 .gradle/
 build/
 bin/fledge-bridge
+bin/fledge-bridge.bat
 *.class
 *.jar
 !gradle/wrapper/gradle-wrapper.jar

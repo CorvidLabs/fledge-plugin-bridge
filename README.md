@@ -76,7 +76,8 @@ fledge bridge disconnect
 | Auth | Token-scoped to agent + project |
 | Capabilities | Read/write/exec each opt-in at connect |
 | Path sandbox | All file ops confined to `--sandbox` directory |
-| Command filter | Destructive commands blocked (`rm -rf /`, fork bombs, etc.) |
+| Exec gating | `--allow-exec` is opt-in; operator accepts risk of granting shell access |
+| Audit log | Every request logged to `~/.fledge/bridge-audit.log` (NDJSON) |
 | Session scope | Connection dies when CLI exits |
 
 ## Protocol
