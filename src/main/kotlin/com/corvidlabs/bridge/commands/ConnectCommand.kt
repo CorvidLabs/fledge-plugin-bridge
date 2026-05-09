@@ -23,8 +23,10 @@ class ConnectCommand(private val initMessage: InitMessage?) : CliktCommand(name 
     private val project by option("--project", "-p", help = "Project ID to scope the bridge to")
         .default("")
 
-    private val sandboxPath by option("--sandbox", help = "Root directory to sandbox file operations to")
-        .default(".")
+    private val sandboxOpt by option("--sandbox", help = "Root directory to sandbox file operations to")
+
+    private val sandboxPath: String
+        get() = sandboxOpt ?: initMessage?.project?.root ?: "."
 
     private val allowRead by option("--allow-read", help = "Allow file read operations").default("true")
     private val allowWrite by option("--allow-write", help = "Allow file write operations").default("false")
