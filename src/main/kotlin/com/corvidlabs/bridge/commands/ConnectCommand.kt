@@ -33,7 +33,9 @@ class ConnectCommand(private val initMessage: InitMessage?) : CliktCommand(name 
             if (root != null) {
                 val f = File(root)
                 if (f.isAbsolute && f.isDirectory) return root
-                val resolved = File(System.getProperty("user.home"), root)
+                val relative = root.removePrefix("/")
+                val home = System.getProperty("user.home") ?: ""
+                val resolved = File(home, relative)
                 if (resolved.isDirectory) return resolved.absolutePath
             }
             return "."
