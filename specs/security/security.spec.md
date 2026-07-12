@@ -41,6 +41,14 @@ Enforces the bridge's security model: capability-gated operations (read/write/ex
 | `allowExec` | `Boolean` | Whether command execution is permitted |
 | `sandboxRoot` | `String` | Root directory for path sandboxing |
 
+### Export Inventory
+
+| Export | Description |
+|--------|-------------|
+| `allowRead` | Whether reads are permitted. |
+| `allowWrite` | Whether writes are permitted. |
+| `allowExec` | Whether command execution is permitted. |
+
 ## Invariants
 
 1. Capabilities default to read-only — write and exec must be explicitly enabled.

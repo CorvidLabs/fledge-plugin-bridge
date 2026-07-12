@@ -6,6 +6,7 @@ files:
   - src/main/kotlin/com/corvidlabs/bridge/protocol/FledgeProtocol.kt
   - src/main/kotlin/com/corvidlabs/bridge/Main.kt
   - src/main/kotlin/com/corvidlabs/bridge/cli/BridgeCli.kt
+  - src/main/kotlin/com/corvidlabs/bridge/commands/VersionCommand.kt
 db_tables: []
 depends_on: []
 ---
@@ -43,6 +44,36 @@ Implements the fledge-v1 plugin protocol for communication between the fledge CL
 | `ProjectInfo` | Project metadata from init message |
 | `PluginInfo` | Plugin metadata from init message |
 | `Capabilities` | Fledge capability flags (exec, store, metadata) |
+
+### Export Inventory
+
+| Export | Description |
+|--------|-------------|
+| `type` | Initialization message discriminator. |
+| `protocol` | Requested protocol version. |
+| `args` | Plugin command arguments. |
+| `project` | Optional project metadata. |
+| `plugin` | Optional plugin metadata. |
+| `capabilities` | Granted fledge capabilities. |
+| `name` | Project or plugin name. |
+| `root` | Project root path. |
+| `language` | Detected project language. |
+| `version` | Plugin version. |
+| `dir` | Plugin installation directory. |
+| `exec` | Execute capability flag. |
+| `store` | Storage capability flag. |
+| `metadata` | Metadata capability flag. |
+| `readInit` | Decode a fledge initialization message. |
+| `output` | Emit user-facing structured output. |
+| `log` | Emit a structured log message. |
+| `error` | Emit an error log. |
+| `info` | Emit an informational log. |
+| `main` | Executable entry point. |
+| `invokeWithoutSubcommand` | Root command invocation policy. |
+| `printHelpOnEmptyArgs` | Empty-argument help policy. |
+| `help` | CLI help text. |
+| `run` | Execute the selected CLI command. |
+| `VersionCommand` | Print the plugin version. |
 
 ## Invariants
 

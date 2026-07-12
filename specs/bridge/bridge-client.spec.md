@@ -9,6 +9,7 @@ files:
   - src/main/kotlin/com/corvidlabs/bridge/commands/ConnectCommand.kt
   - src/main/kotlin/com/corvidlabs/bridge/commands/StatusCommand.kt
   - src/main/kotlin/com/corvidlabs/bridge/commands/DisconnectCommand.kt
+  - src/main/kotlin/com/corvidlabs/bridge/audit/AuditLog.kt
 db_tables: []
 depends_on:
   - specs/protocol/protocol.spec.md
@@ -56,6 +57,40 @@ WebSocket client that establishes an outbound connection from a developer's loca
 | `file.list` | server → client | List directory contents |
 | `exec` | server → client | Execute a shell command in sandbox |
 | `ping` / `pong` | bidirectional | Keepalive |
+
+### Export Inventory
+
+| Export | Description |
+|--------|-------------|
+| `BridgeRequest` | Incoming request envelope. |
+| `id` | Correlation identifier. |
+| `type` | Protocol request discriminator. |
+| `path` | Requested sandbox-relative path. |
+| `content` | File-write content. |
+| `pattern` | Optional list filter. |
+| `command` | Requested shell command. |
+| `cwd` | Requested working directory. |
+| `timeout` | Command timeout in seconds. |
+| `BridgeResponse` | Structured request result. |
+| `success` | Result success flag. |
+| `data` | Successful result payload. |
+| `error` | Failure detail. |
+| `AuthMessage` | Authentication request envelope. |
+| `token` | Session authentication token. |
+| `projectId` | Target project identifier. |
+| `capabilities` | Declared session capabilities. |
+| `CapabilitySet` | Serializable capability declaration. |
+| `read` | Read capability flag. |
+| `write` | Write capability flag. |
+| `exec` | Execute capability flag. |
+| `AuthResponse` | Authentication result. |
+| `reason` | Authentication failure reason. |
+| `handle` | Validate and dispatch one bridge request. |
+| `thread` | Request execution thread reference. |
+| `help` | Connect-command help text. |
+| `run` | Execute the selected bridge command. |
+| `AuditLog` | Append-only structured request audit logger. |
+| `record` | Persist one audit entry. |
 
 ## Invariants
 

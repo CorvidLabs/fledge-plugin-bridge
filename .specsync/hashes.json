@@ -1,0 +1,23 @@
+{
+  "hashes": {
+    "src/main/kotlin/com/corvidlabs/bridge/Main.kt": "212c54535398630295d88aa83b628d8f45e0e6b073f3ccd9039119a544d423c6",
+    "src/main/kotlin/com/corvidlabs/bridge/commands/DisconnectCommand.kt": "84028e50da6649844c6af77101df0b0beb3b29681702bbaf5571eef4ad462b67",
+    "src/main/kotlin/com/corvidlabs/bridge/ws/RequestHandler.kt": "0522460eb1cd71d351cb774038e7dbb9d9ed96ff67a12f4894594cac5375dd0f",
+    "src/main/kotlin/com/corvidlabs/bridge/ws/BridgeClient.kt": "a6e68ccf566a727c6a85e6be3faeccbf0043564db6dea6400f65b248f5898fbb",
+    ".specsync/config.toml": "b2d15811f02efc37793a51402d3e95404d0079a303571a13858020be36dd7da5",
+    "specs/protocol/requirements.md": "5155529b5471f901ee197b4bd644729a8fc4004b5ba30320862e0e03e2631996",
+    "specs/protocol/protocol.spec.md": "0dbce6b1ad36ef3d98e7bb4e67d3fa107b74fe87c4d8bf8a24806c3125d3458f",
+    "specs/bridge/requirements.md": "9e779dff992248dd9b2f4338bb526e51117a37dc7f4f4ba5bc72205cd75fcaa7",
+    "specs/security/security.spec.md": "ba9219faa112bbfa22eef8d7fa93df9171728a1c956f72277fca548e65b662d1",
+    "src/main/kotlin/com/corvidlabs/bridge/commands/StatusCommand.kt": "8171e21ea7d18d06d18ee5c5487e0b73ebeeeb140224121acfe061fca5ef101c",
+    "specs/bridge/bridge-client.spec.md": "1fd268c4c137001c06410faaf5c9e2ab615a28e0546573857f05edef29760ed6",
+    "src/main/kotlin/com/corvidlabs/bridge/audit/AuditLog.kt": "6a5d13c4b84c2882e4c7a8155b4900c52f70870a651dcb145047bda0ec75bc61",
+    "specs/security/requirements.md": "62b7b39cd484a8cd0471a5f0688ee400ce50ef9fd9a40f6bd7287cac052263a9",
+    "src/main/kotlin/com/corvidlabs/bridge/ws/BridgeMessage.kt": "d514cd3c8db03158b3541d2861544ceca8c6078f1b23b48825d62d168e992881",
+    "src/main/kotlin/com/corvidlabs/bridge/security/CapabilityGuard.kt": "f7c60e912bbc2550d82d1b1c2d6ef804ee36e737c45f2af060dd661b7f741c55",
+    "src/main/kotlin/com/corvidlabs/bridge/commands/ConnectCommand.kt": "5583c0bfa432bfa6fb1435af74cc511f0b441e735dcf06aee71cd31cf367250e",
+    "src/main/kotlin/com/corvidlabs/bridge/protocol/FledgeProtocol.kt": "da3a1229cfb30b315d944fee946661b85e63c19aba90920a995024b2b502dd57",
+    "src/main/kotlin/com/corvidlabs/bridge/commands/VersionCommand.kt": "a5335ba0cb975e9e9fb73a1bc8f2142b9614182c796870cafd62873f371798ff",
+    "src/main/kotlin/com/corvidlabs/bridge/cli/BridgeCli.kt": "78bf49832c5a4134de74d8c5f876fcfcc77423dce60f7fe5838b52297f5252aa"
+  }
+}
