@@ -1,11 +1,12 @@
 ---
 module: protocol
-version: 1
+version: 2
 status: active
 files:
   - src/main/kotlin/com/corvidlabs/bridge/protocol/FledgeProtocol.kt
   - src/main/kotlin/com/corvidlabs/bridge/Main.kt
   - src/main/kotlin/com/corvidlabs/bridge/cli/BridgeCli.kt
+  - src/main/kotlin/com/corvidlabs/bridge/commands/VersionCommand.kt
 db_tables: []
 depends_on: []
 ---
@@ -44,12 +45,42 @@ Implements the fledge-v1 plugin protocol for communication between the fledge CL
 | `PluginInfo` | Plugin metadata from init message |
 | `Capabilities` | Fledge capability flags (exec, store, metadata) |
 
+### Export Inventory
+
+| Export | Description |
+|--------|-------------|
+| `type` | Initialization message discriminator. |
+| `protocol` | Requested protocol version. |
+| `args` | Plugin command arguments. |
+| `project` | Optional project metadata. |
+| `plugin` | Optional plugin metadata. |
+| `capabilities` | Granted fledge capabilities. |
+| `name` | Project or plugin name. |
+| `root` | Project root path. |
+| `language` | Detected project language. |
+| `version` | Plugin version. |
+| `dir` | Plugin installation directory. |
+| `exec` | Execute capability flag. |
+| `store` | Storage capability flag. |
+| `metadata` | Metadata capability flag. |
+| `readInit` | Decode a fledge initialization message. |
+| `output` | Emit user-facing structured output. |
+| `log` | Emit a structured log message. |
+| `error` | Emit an error log. |
+| `info` | Emit an informational log. |
+| `main` | Executable entry point. |
+| `invokeWithoutSubcommand` | Root command invocation policy. |
+| `printHelpOnEmptyArgs` | Empty-argument help policy. |
+| `help` | CLI help text. |
+| `run` | Execute the selected CLI command. |
+| `VersionCommand` | Print the plugin version. |
+
 ## Invariants
 
 1. `readInit` returns null if stdin is empty or the message is not a valid init message.
-2. All output messages are newline-delimited JSON written to stdout.
+2. `FledgeProtocol` output and log messages are newline-delimited JSON written to stdout.
 3. The plugin can also run standalone (without fledge) by passing CLI args directly.
-4. stdout is flushed after every message to prevent buffering deadlocks.
+4. stdout is flushed after every protocol message.
 
 ## Behavioral Examples
 
@@ -91,3 +122,4 @@ Implements the fledge-v1 plugin protocol for communication between the fledge CL
 | Date | Author | Change |
 |------|--------|--------|
 | 2026-05-06 | CorvidAgent | Initial spec |
+| 2026-07-14 | SpecSync | CHG-0001-adopt-specsync-5-0-1-and-trust-1-0-0-governance-for-the-bridge-fledge-plugin: Adopt SpecSync 5.0.1 and Trust 1.0.0 governance for the Bridge Fledge plugin |

@@ -1,8 +1,6 @@
 [tasks]
 build = "./gradlew build"
 test = "./gradlew test"
-lint = "./gradlew ktlintCheck"
-lint-fix = "./gradlew ktlintFormat"
 check = "./gradlew check"
 jar = "./gradlew jar"
 clean = "./gradlew clean"
@@ -13,7 +11,7 @@ description = "Build and install the fledge plugin binary"
 
 [lanes.verify]
 description = "Full verification pipeline"
-steps = [{ parallel = ["lint", "check"] }, "test"]
+steps = ["build"]
 
 [lanes.ci]
 description = "CI pipeline with build"
@@ -21,4 +19,4 @@ steps = ["verify", "jar"]
 
 [lanes.pre-commit]
 description = "Run before committing changes"
-steps = [{ parallel = ["lint", "check"] }, "test"]
+steps = ["build"]

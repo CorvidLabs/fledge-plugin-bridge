@@ -1,6 +1,6 @@
 ---
 module: security
-version: 1
+version: 2
 status: active
 files:
   - src/main/kotlin/com/corvidlabs/bridge/security/CapabilityGuard.kt
@@ -41,12 +41,20 @@ Enforces the bridge's security model: capability-gated operations (read/write/ex
 | `allowExec` | `Boolean` | Whether command execution is permitted |
 | `sandboxRoot` | `String` | Root directory for path sandboxing |
 
+### Export Inventory
+
+| Export | Description |
+|--------|-------------|
+| `allowRead` | Whether reads are permitted. |
+| `allowWrite` | Whether writes are permitted. |
+| `allowExec` | Whether command execution is permitted. |
+
 ## Invariants
 
 1. Capabilities default to read-only — write and exec must be explicitly enabled.
 2. Path validation normalizes paths and rejects any path that resolves outside the sandbox root.
 3. Symbolic links that resolve outside the sandbox are rejected.
-4. Command validation rejects NUL bytes and empty input but does not maintain a command blocklist. The previous five-substring denylist (`rm -rf /`, `mkfs`, etc.) was removed as security theatre — it was trivially bypassed. With `--allow-exec true` the operator grants shell access; trust is their responsibility.
+4. Command validation rejects NUL bytes and empty input but does not maintain a command blocklist. With `--allow-exec true` the operator grants shell access; trust is their responsibility.
 5. CapabilityGuard is immutable after construction — capabilities cannot be escalated mid-session.
 
 ## Behavioral Examples
@@ -104,3 +112,4 @@ Enforces the bridge's security model: capability-gated operations (read/write/ex
 | Date | Author | Change |
 |------|--------|--------|
 | 2026-05-06 | CorvidAgent | Initial spec |
+| 2026-07-14 | SpecSync | CHG-0001-adopt-specsync-5-0-1-and-trust-1-0-0-governance-for-the-bridge-fledge-plugin: Adopt SpecSync 5.0.1 and Trust 1.0.0 governance for the Bridge Fledge plugin |

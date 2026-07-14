@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "id": "CHG-0002-cover-the-installed-agent-integrations-and-trust-component-policy-files-in-the-v",
+  "slug": "cover-the-installed-agent-integrations-and-trust-component-policy-files-in-the-v",
+  "title": "Cover the installed agent integrations and Trust component policy files in the verified SDD delivery without changing the canonical contract",
+  "description": "Cover the installed agent integrations and Trust component policy files in the verified SDD delivery without changing the canonical contract",
+  "kind": "operations",
+  "state": "accepted",
+  "canonical_applied": true,
+  "base_commit": "68db237920b6f0035236d1d07c9397fb26d0bce2",
+  "created_at": 1783990798,
+  "updated_at": 1783990918,
+  "affected_specs": [],
+  "affected_paths": [
+    ".attest.json",
+    ".augur.toml",
+    ".claude/",
+    ".codex/",
+    ".cursor/",
+    ".gemini/",
+    "AGENTS.md"
+  ],
+  "no_spec_change": true,
+  "no_spec_change_rationale": "These files configure the approved governance toolchain and agent integrations; they do not change Kotlin runtime behavior or the canonical bridge contract.",
+  "acceptance_criteria": [
+    "All four agent integrations report installed; managed Trust rules are present; Augur and Attest policies parse; strict SpecSync coverage remains 100 percent; native Gradle and unified Trust verification pass"
+  ],
+  "selected_artifacts": [
+    "context",
+    "plan",
+    "testing",
+    "design",
+    "tasks",
+    "research"
+  ],
+  "dependencies": [],
+  "answers": {
+    "architecture_risk": "yes",
+    "public_contract": "no"
+  }
+}

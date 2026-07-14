@@ -99,7 +99,7 @@ JSON messages over WebSocket:
 
 This project uses [spec-sync](https://github.com/CorvidLabs/spec-sync) for spec-to-code validation:
 
-- `specs/bridge/bridge-client.spec.md` — WebSocket client and request handling
+- `specs/bridge-client/bridge-client.spec.md` — WebSocket client and request handling
 - `specs/protocol/protocol.spec.md` — Fledge-v1 plugin protocol
 - `specs/security/security.spec.md` — Capability guard and path sandboxing
 
