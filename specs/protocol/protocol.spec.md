@@ -6,6 +6,7 @@ files:
   - src/main/kotlin/com/corvidlabs/bridge/protocol/FledgeProtocol.kt
   - src/main/kotlin/com/corvidlabs/bridge/Main.kt
   - src/main/kotlin/com/corvidlabs/bridge/cli/BridgeCli.kt
+  - src/main/kotlin/com/corvidlabs/bridge/commands/VersionCommand.kt
 db_tables: []
 depends_on: []
 ---
@@ -68,8 +69,11 @@ Implements the fledge-v1 plugin protocol for communication between the fledge CL
 | `error` | Emit an error log. |
 | `info` | Emit an informational log. |
 | `main` | Executable entry point. |
+| `invokeWithoutSubcommand` | Root command invocation policy. |
+| `printHelpOnEmptyArgs` | Empty-argument help policy. |
 | `help` | CLI help text. |
 | `run` | Execute the selected CLI command. |
+| `VersionCommand` | Print the plugin version. |
 
 ## Invariants
 

@@ -9,7 +9,7 @@
   "canonical_applied": true,
   "base_commit": "b9fa484d9a678f1db68059af35793472149ea84f",
   "created_at": 1783874918,
-  "updated_at": 1783990533,
+  "updated_at": 1783990774,
   "affected_specs": [
     "bridge-client",
     "protocol",
