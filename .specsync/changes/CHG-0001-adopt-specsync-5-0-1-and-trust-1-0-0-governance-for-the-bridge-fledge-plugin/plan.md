@@ -5,8 +5,8 @@ artifact: plan
 
 # Plan
 
-1. Reconcile source ownership, export inventories, and stable requirements.
+1. Reconcile source ownership, current behavior, and stable requirements.
 2. Install all integrations and enable verified SDD.
-3. Align Fledge verification to native Gradle build and tests.
+3. Align Fledge verification to the native Gradle build lifecycle, which includes tests.
 4. Add policy inputs and the unified immutable Trust workflow.
-5. Validate contract, build, tests, agents, and Trust health.
+5. Validate contract, build, tests, agents, Trust health, and the absence of product-code changes.

@@ -1,8 +1,6 @@
 # fledge-plugin-bridge
 
-![spec coverage](https://img.shields.io/endpoint?url=https://corvidlabs.github.io/fledge-plugin-bridge/badges/coverage.json)
-
-A Kotlin fledge plugin that bridges your local dev environment to [corvid-agent](https://github.com/CorvidLabs/corvid-agent) via outbound WebSocket. Agents can read/write files and run commands on your machine: securely, with capability gating and path sandboxing.
+A Kotlin fledge plugin that bridges your local dev environment to [corvid-agent](https://github.com/CorvidLabs/corvid-agent) via outbound WebSocket. Agents can read/write files and run commands on your machine — securely, with capability gating and path sandboxing.
 
 ## Architecture
 
@@ -15,10 +13,10 @@ fledge bridge connect             /api/bridge endpoint
 ```
 
 **Key design decisions:**
-- **Outbound-only**: no ports opened on your machine
-- **Capability-gated**: read, write, exec each opt-in per session
-- **Path-sandboxed**: all file ops confined to project directory
-- **Session-scoped**: dies when you close the CLI
+- **Outbound-only** — no ports opened on your machine
+- **Capability-gated** — read, write, exec each opt-in per session
+- **Path-sandboxed** — all file ops confined to project directory
+- **Session-scoped** — dies when you close the CLI
 
 ## Installation
 
@@ -78,8 +76,7 @@ fledge bridge disconnect
 | Auth | Token-scoped to agent + project |
 | Capabilities | Read/write/exec each opt-in at connect |
 | Path sandbox | All file ops confined to `--sandbox` directory |
-| Exec gating | `--allow-exec` is opt-in; operator accepts risk of granting shell access |
-| Audit log | Every request logged to `~/.fledge/bridge-audit.log` (NDJSON) |
+| Command filter | Destructive commands blocked (`rm -rf /`, fork bombs, etc.) |
 | Session scope | Connection dies when CLI exits |
 
 ## Protocol
@@ -99,7 +96,7 @@ JSON messages over WebSocket:
 
 This project uses [spec-sync](https://github.com/CorvidLabs/spec-sync) for spec-to-code validation:
 
-- `specs/bridge/bridge-client.spec.md` — WebSocket client and request handling
+- `specs/bridge-client/bridge-client.spec.md` — WebSocket client and request handling
 - `specs/protocol/protocol.spec.md` — Fledge-v1 plugin protocol
 - `specs/security/security.spec.md` — Capability guard and path sandboxing
 

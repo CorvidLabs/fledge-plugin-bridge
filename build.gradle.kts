@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.corvidlabs"
-version = "0.4.8"
+version = "0.1.0"
 
 repositories {
     mavenCentral()
@@ -51,12 +51,6 @@ tasks.test {
 
 kotlin {
     jvmToolchain(21)
-}
-
-// Enable Gradle dependency locking. Run `./gradlew dependencies --write-locks`
-// after changing dependencies to regenerate the lockfiles.
-dependencyLocking {
-    lockAllConfigurations()
 }
 
 tasks.jar {

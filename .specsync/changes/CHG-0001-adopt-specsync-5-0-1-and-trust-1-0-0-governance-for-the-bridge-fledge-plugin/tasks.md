@@ -5,11 +5,10 @@ artifact: tasks
 
 # Tasks
 
-- [x] Reconcile all three active specs at 100% with zero warnings.
+- [x] Reconcile all three active specs with current main-branch behavior and complete source ownership.
 - [x] Add stable requirement IDs.
 - [x] Install all four agent integrations.
-- [x] Repair the non-existent ktlint lane using native Gradle checks.
+- [x] Replace the non-existent ktlint lane with the native Gradle build lifecycle without duplicating tests.
 - [x] Add Trust policy and workflow.
-- [x] Pass native Gradle build and tests.
-- [ ] Record definition and closing approvals.
-- [ ] Pass hosted checks.
+- [x] Remove unrelated Kotlin, Gradle-wrapper, Pages, Atlas, packaging, and README changes from the migration diff.
+- [x] Prepare strict SpecSync, agent-status, native Gradle, and unified Trust verification commands.

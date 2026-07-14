@@ -1,6 +1,6 @@
 ---
 module: bridge-client
-version: 1
+version: 2
 status: active
 files:
   - src/main/kotlin/com/corvidlabs/bridge/ws/BridgeClient.kt
@@ -21,7 +21,7 @@ tracks: [2285]
 
 ## Purpose
 
-WebSocket client that establishes an outbound connection from a developer's local machine to a corvid-agent server. Receives file and exec requests from agents, executes them locally within a sandboxed scope, and returns results. The connection is always outbound — no inbound ports are opened on the developer's machine.
+WebSocket client that establishes an outbound connection from a developer's local machine to a corvid-agent server. It handles capability-gated file requests inside a path sandbox and, when explicitly enabled, executes shell commands from a validated working directory. Command execution is not an operating-system sandbox. The connection is always outbound — no inbound ports are opened on the developer's machine.
 
 ## Public API
 
@@ -32,8 +32,8 @@ WebSocket client that establishes an outbound connection from a developer's loca
 | `BridgeClient` | WebSocket client that connects to corvid-agent and handles agent requests |
 | `RequestHandler` | Dispatches incoming requests to file/exec handlers with capability checks |
 | `ConnectCommand` | Clikt command: `bridge connect --server <url> --token <token>` |
-| `StatusCommand` | Clikt command: `bridge status` — shows connection state |
-| `DisconnectCommand` | Clikt command: `bridge disconnect` — terminates active session |
+| `StatusCommand` | Clikt command: `bridge status` — reports that no persistent session is active |
+| `DisconnectCommand` | Clikt command: `bridge disconnect` — reports that there is no persistent session to terminate |
 
 ### BridgeClient Methods
 
@@ -133,7 +133,7 @@ WebSocket client that establishes an outbound connection from a developer's loca
 | Path escapes sandbox | Request rejected with "Path escapes sandbox" error |
 | Capability not granted | Request rejected with capability-specific error message |
 | Command timeout | Process killed after timeout, error response sent |
-| Blocked command | Request rejected by safety filter |
+| Empty or NUL-containing command | Request rejected before shell execution |
 | WebSocket disconnect | CLI detects closure, prints "Disconnected", exits cleanly |
 
 ## Dependencies
@@ -156,3 +156,4 @@ WebSocket client that establishes an outbound connection from a developer's loca
 | Date | Author | Change |
 |------|--------|--------|
 | 2026-05-06 | CorvidAgent | Initial spec |
+| 2026-07-14 | SpecSync | CHG-0001-adopt-specsync-5-0-1-and-trust-1-0-0-governance-for-the-bridge-fledge-plugin: Adopt SpecSync 5.0.1 and Trust 1.0.0 governance for the Bridge Fledge plugin |

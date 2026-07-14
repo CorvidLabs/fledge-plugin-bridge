@@ -1,3 +1,71 @@
 {
-  "approvals": []
+  "approvals": [
+    {
+      "gate": "definition",
+      "actor": "user:0xLeif",
+      "timestamp": 1783989903,
+      "digest": "2a332d28ceb12c590c23b51a8b52192fff628a752aaf00e3ce3789e7fc40f8c8",
+      "note": "Approved migration-only definition after removing unrelated product, build, packaging, Pages, and Atlas changes and reconciling the canonical contract with current main behavior"
+    },
+    {
+      "gate": "acceptance",
+      "actor": "user:0xLeif",
+      "timestamp": 1783990452,
+      "digest": "eb948007bd340e6545beb49ded3a43b27b5207121868add6b1eed599edfd6b0f",
+      "note": "Closing approval after successful native Gradle build and tests with requirement-linked evidence and a migration-only diff"
+    },
+    {
+      "gate": "acceptance",
+      "actor": "user:0xLeif",
+      "timestamp": 1783990533,
+      "digest": "73855a7856564a6798c373b661962a1233ebfcd833e69ebf727234d441d204d8",
+      "note": "Fresh closing approval after successful native Gradle verification of the whitespace-clean final contract"
+    }
+  ],
+  "reopenings": [
+    {
+      "schema_version": 1,
+      "change_id": "CHG-0001-adopt-specsync-5-0-1-and-trust-1-0-0-governance-for-the-bridge-fledge-plugin",
+      "actor": "user:0xLeif",
+      "reason": "Remove trailing blank lines introduced while applying requirement deltas before final evidence",
+      "timestamp": 1783990508,
+      "from_state": "accepted",
+      "to_state": "verifying",
+      "superseded_approval": {
+        "gate": "acceptance",
+        "actor": "user:0xLeif",
+        "timestamp": 1783990452,
+        "digest": "eb948007bd340e6545beb49ded3a43b27b5207121868add6b1eed599edfd6b0f",
+        "note": "Closing approval after successful native Gradle build and tests with requirement-linked evidence and a migration-only diff"
+      },
+      "prior_verification": {
+        "timestamp": 1783990445,
+        "commit": "5113351ee6ccd01856bf2daa3efc91bce887ec55",
+        "contract_digest": "2a332d28ceb12c590c23b51a8b52192fff628a752aaf00e3ce3789e7fc40f8c8",
+        "workspace_digest": "aad983f2b29b54daf0c931389dea97b734b00c4d2835c816fdaf7da40266d796",
+        "acceptance_input_digest": "ef7c9146486a1dfdb9744854af197c8c32e6c68069499ee53c64de7da29e6b5a",
+        "passed": true,
+        "commands": [
+          {
+            "command": "fledge lanes run verify",
+            "success": true,
+            "exit_code": 0
+          }
+        ],
+        "requirement_ids": [
+          "REQ-bridge-client-001",
+          "REQ-bridge-client-002",
+          "REQ-bridge-client-003",
+          "REQ-protocol-001",
+          "REQ-protocol-002",
+          "REQ-protocol-003",
+          "REQ-security-001",
+          "REQ-security-002",
+          "REQ-security-003"
+        ]
+      },
+      "stale_acceptance_input_digest": "ef7c9146486a1dfdb9744854af197c8c32e6c68069499ee53c64de7da29e6b5a",
+      "current_acceptance_input_digest": "9694c1248140e426f67c00e6cc336161bb8d94900ae2843802c698cce13fe0ae"
+    }
+  ]
 }

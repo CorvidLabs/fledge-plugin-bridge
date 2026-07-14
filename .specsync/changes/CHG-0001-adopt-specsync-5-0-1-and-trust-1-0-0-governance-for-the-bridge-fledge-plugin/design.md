@@ -5,4 +5,4 @@ artifact: design
 
 # Design
 
-Reconcile the three active companions at 100% coverage without changing semantics. Use standard Trust with blocking risk, progressive provenance, and Trust Atlas disabled. Add an immutable Ubuntu Trust gate with JDK 21 and preserve native CI and Pages.
+Reconcile the three active companions at 100% coverage without changing runtime semantics. Use standard Trust with blocking risk, progressive provenance, and Trust Atlas disabled. Add an immutable Ubuntu Trust gate with JDK 21 and preserve the existing native CI, Kotlin sources, Gradle wrapper, build configuration, packaging, and README.

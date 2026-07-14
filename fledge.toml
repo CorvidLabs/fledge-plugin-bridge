@@ -11,7 +11,7 @@ description = "Build and install the fledge plugin binary"
 
 [lanes.verify]
 description = "Full verification pipeline"
-steps = ["build", "test"]
+steps = ["build"]
 
 [lanes.ci]
 description = "CI pipeline with build"
@@ -19,4 +19,4 @@ steps = ["verify", "jar"]
 
 [lanes.pre-commit]
 description = "Run before committing changes"
-steps = ["build", "test"]
+steps = ["build"]

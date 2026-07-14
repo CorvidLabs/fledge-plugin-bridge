@@ -5,4 +5,4 @@ artifact: research
 
 # Research
 
-SpecSync 5 found 59 unnamed exports and two unmapped source files across the existing companions. It also exposed a broken Fledge lint task for a ktlint plugin the build never applies. The canonical export inventory and native Gradle build/test lane now match actual repository behavior.
+SpecSync 5 found unmapped production sources and stale canonical claims across the existing companions. The implementation has no persistent session behind `status` or `disconnect`; explicit exec grants an unsandboxed shell with only its working directory path-validated; `FledgeProtocol` output is JSON but Clikt owns standalone output; and command validation rejects blank/NUL input without a substring blocklist. The repository also configured a ktlint task for a plugin the build does not apply. Gradle `build` already runs the test lifecycle, so one native build step is the non-duplicative verification lane.

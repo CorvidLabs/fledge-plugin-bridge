@@ -56,7 +56,7 @@ object FledgeProtocol {
     }
 
     fun log(level: String, message: String) {
-        val msg = """{"type":"log","level":${Json.encodeToString(level)},"message":${Json.encodeToString(message)}}"""
+        val msg = """{"type":"log","level":"$level","message":${Json.encodeToString(message)}}"""
         println(msg)
         System.out.flush()
     }

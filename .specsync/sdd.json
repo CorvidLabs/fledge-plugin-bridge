@@ -3,6 +3,14 @@
   "enabled": true,
   "require_change_for_meaningful_files": true,
   "meaningful_paths": [
+    ".claude/",
+    ".codex/",
+    ".cursor/",
+    ".gemini/",
+    ".augur.toml",
+    ".attest.json",
+    ".trust.toml",
+    "fledge.toml",
     "src/",
     "tests/",
     "site/",
@@ -22,6 +30,11 @@
     "pyproject.toml",
     "uv.lock",
     "requirements.txt",
+    "build.gradle.kts",
+    "settings.gradle.kts",
+    "gradle.properties",
+    "gradle/",
+    "gradlew",
     ".specsync/sdd.json",
     ".specsync/config.toml",
     ".specsync/config.json",
@@ -29,11 +42,12 @@
     "src/main/kotlin/"
   ],
   "ignored_paths": [
-    ".specsync/",
+    ".specsync/changes/",
+    ".specsync/adoption-report.json",
     "specs/"
   ],
   "verification_commands": [
-    "fledge run test"
+    "fledge lanes run verify"
   ],
   "custom_artifacts": {},
   "principles_file": null
