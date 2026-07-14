@@ -1,0 +1,19 @@
+{
+  "approvals": [
+    {
+      "gate": "definition",
+      "actor": "user:0xLeif",
+      "timestamp": 1783990889,
+      "digest": "54d26f82bb41b08059b9637daf7822b3236c44d0b9a92cde2f7dab8f0231b7b3",
+      "note": "Definition approved after confirming this change covers only installed governance integrations and policy files."
+    },
+    {
+      "gate": "acceptance",
+      "actor": "user:0xLeif",
+      "timestamp": 1783990918,
+      "digest": "51eb3eadf7fdcbc26046181e3fb1d90bfd20aae881e774aef9344ec2f4d7211a",
+      "note": "Closing approval recorded after strict 100 percent SpecSync validation and successful native Gradle build and tests."
+    }
+  ],
+  "reopenings": []
+}
