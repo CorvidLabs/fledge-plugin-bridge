@@ -1,0 +1,53 @@
+{
+  "format_version": 1,
+  "hashes": {
+    ".specsync/config.toml": "b2d15811f02efc37793a51402d3e95404d0079a303571a13858020be36dd7da5",
+    "specs/bridge-client/bridge-client.spec.md": "a55096daf23ebe618c20548832375b4cfe254b935d151e5a876cd376f78aa347",
+    "specs/bridge-client/requirements.md": "e6fa605c6a65ba01c074dc90254d3c875bf0cd0a526ac5f367b72163ddea055b",
+    "specs/protocol/protocol.spec.md": "5bc8b2402c835c21c2c82ad00c4faf7017423e220e7bc1c9161d1b5d3a449a39",
+    "specs/protocol/requirements.md": "c250e20f01d1af3fa8a3f00f5ed9d3e1031b711f5c37f3218bfc1a2374fe1472",
+    "specs/security/requirements.md": "9a55ba1f6b31f0c3235255b605f6c8c0abe8cfa735e113b218cda11ab74164c4",
+    "specs/security/security.spec.md": "75f08497613b62d18d7b40b5d5400264171889252087b529f32f06ec7b0f0633",
+    "src/main/kotlin/com/corvidlabs/bridge/Main.kt": "212c54535398630295d88aa83b628d8f45e0e6b073f3ccd9039119a544d423c6",
+    "src/main/kotlin/com/corvidlabs/bridge/audit/AuditLog.kt": "6a5d13c4b84c2882e4c7a8155b4900c52f70870a651dcb145047bda0ec75bc61",
+    "src/main/kotlin/com/corvidlabs/bridge/cli/BridgeCli.kt": "78bf49832c5a4134de74d8c5f876fcfcc77423dce60f7fe5838b52297f5252aa",
+    "src/main/kotlin/com/corvidlabs/bridge/commands/ConnectCommand.kt": "5583c0bfa432bfa6fb1435af74cc511f0b441e735dcf06aee71cd31cf367250e",
+    "src/main/kotlin/com/corvidlabs/bridge/commands/DisconnectCommand.kt": "84028e50da6649844c6af77101df0b0beb3b29681702bbaf5571eef4ad462b67",
+    "src/main/kotlin/com/corvidlabs/bridge/commands/StatusCommand.kt": "8171e21ea7d18d06d18ee5c5487e0b73ebeeeb140224121acfe061fca5ef101c",
+    "src/main/kotlin/com/corvidlabs/bridge/commands/VersionCommand.kt": "a5335ba0cb975e9e9fb73a1bc8f2142b9614182c796870cafd62873f371798ff",
+    "src/main/kotlin/com/corvidlabs/bridge/protocol/FledgeProtocol.kt": "da3a1229cfb30b315d944fee946661b85e63c19aba90920a995024b2b502dd57",
+    "src/main/kotlin/com/corvidlabs/bridge/security/CapabilityGuard.kt": "f7c60e912bbc2550d82d1b1c2d6ef804ee36e737c45f2af060dd661b7f741c55",
+    "src/main/kotlin/com/corvidlabs/bridge/ws/BridgeClient.kt": "a6e68ccf566a727c6a85e6be3faeccbf0043564db6dea6400f65b248f5898fbb",
+    "src/main/kotlin/com/corvidlabs/bridge/ws/BridgeMessage.kt": "d514cd3c8db03158b3541d2861544ceca8c6078f1b23b48825d62d168e992881",
+    "src/main/kotlin/com/corvidlabs/bridge/ws/RequestHandler.kt": "0522460eb1cd71d351cb774038e7dbb9d9ed96ff67a12f4894594cac5375dd0f"
+  },
+  "snapshots": {
+    "specs/bridge-client/bridge-client.spec.md": {
+      "snapshot_version": 1,
+      "spec_path": "specs/bridge-client/bridge-client.spec.md",
+      "errors": [],
+      "warnings": [],
+      "notices": [],
+      "input_digest": "e8b99d86f5329a8c780586cb215a5663498822fcaa947b7823a8ace4eb296d57",
+      "snapshot_digest": "9c7830454d2cb7e04caf1a0c4f739b68a47b26e6259fd579a2d25af2a17757f3"
+    },
+    "specs/protocol/protocol.spec.md": {
+      "snapshot_version": 1,
+      "spec_path": "specs/protocol/protocol.spec.md",
+      "errors": [],
+      "warnings": [],
+      "notices": [],
+      "input_digest": "9872bf442cd706588b793090cccfcd36eeb5aeb9556b614b4483bc777f96779a",
+      "snapshot_digest": "efb4d7181f754b5c19940600c3a70e960a391da08863d10738a6169ea04103e8"
+    },
+    "specs/security/security.spec.md": {
+      "snapshot_version": 1,
+      "spec_path": "specs/security/security.spec.md",
+      "errors": [],
+      "warnings": [],
+      "notices": [],
+      "input_digest": "736bbddf7da99b5ab5c433209fe032dd0a4dac826f6b6766757c0f77b7b5cd3c",
+      "snapshot_digest": "8757e194d49783521afe8d2998c3143452e89cfe8698b56b3bdbc94e4455fa05"
+    }
+  }
+}
