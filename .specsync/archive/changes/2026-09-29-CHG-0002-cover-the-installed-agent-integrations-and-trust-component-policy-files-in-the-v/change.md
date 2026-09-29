@@ -1,6 +1,6 @@
 ---
 id: CHG-0002-cover-the-installed-agent-integrations-and-trust-component-policy-files-in-the-v
-state: accepted
+state: archived
 type: operations
 base_commit: 68db237920b6f0035236d1d07c9397fb26d0bce2
 ---
